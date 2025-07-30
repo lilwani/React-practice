@@ -3,6 +3,8 @@ import ErrorPage from '../components/ErrorPage';
 import Login from '../pages/auth/Login';
 import Signup from '../pages/auth/Signup';
 import App from '../App';
+import Items from '../pages/todos/Items';
+import AddItem from '../pages/todos/AddItem';
 
 const router = createBrowserRouter([
   {
@@ -28,12 +30,12 @@ const router = createBrowserRouter([
           {
             index: true,
             path: ':userId',
-            element: <Login />,
+            element: <Items />,
             errorElement: <ErrorPage />,
           },
           {
             path: ':userId/addTodo',
-            element: <Signup />,
+            element: <AddItem />,
             errorElement: <ErrorPage />,
           },
           {
