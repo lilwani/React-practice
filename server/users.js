@@ -1,19 +1,19 @@
 const users = [
   {
     id: 1,
-    name: 'Leanne Graham',
-    username: 'Bret',
-    email: 'Sincere@april.biz',
+    name: 'yash lol',
+    username: 'ylol',
+    email: 'ylol@lol.com',
     token: [],
-    passoword: '0lelplR',
+    passoword: 'admin@123',
   },
   {
     id: 2,
-    name: 'Ervin Howell',
-    username: 'Antonette',
-    email: 'Shanna@melissa.tv',
+    name: 'yash bhat',
+    username: 'bhat',
+    email: 'yb@lol.com',
     token: [],
-    passoword: '0lelplR',
+    passoword: 'admin@123',
   },
   {
     id: 3,

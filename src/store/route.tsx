@@ -1,10 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 import ErrorPage from '../components/ErrorPage';
 import Login from '../pages/auth/Login';
-import Signup from '../pages/auth/Signup';
 import App from '../App';
 import Items from '../pages/todos/Items';
 import AddItem from '../pages/todos/AddItem';
+import ViewItem from '../pages/todos/ViewItem';
 
 const router = createBrowserRouter([
   {
@@ -13,22 +13,21 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: 'auth',
-        children: [
-          {
-            index: true,
-            path: 'login',
-            element: <Login />,
-            errorElement: <ErrorPage />,
-          },
-          { path: 'signup', element: <Signup />, errorElement: <ErrorPage /> },
-        ],
-      },
-      {
         path: 'user',
         children: [
           {
             index: true,
+            path: 'login',
+            element: <Login isSignup={false} />,
+            errorElement: <ErrorPage />,
+          },
+          {
+            index: true,
+            path: 'signup',
+            element: <Login isSignup={true} />,
+            errorElement: <ErrorPage />,
+          },
+          {
             path: ':userId',
             element: <Items />,
             errorElement: <ErrorPage />,
@@ -40,7 +39,7 @@ const router = createBrowserRouter([
           },
           {
             path: ':userId/:todoId',
-            element: <Signup />,
+            element: <ViewItem />,
             errorElement: <ErrorPage />,
           },
         ],

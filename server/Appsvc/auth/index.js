@@ -26,14 +26,17 @@ const generateRefreshToken = (user) => {
   }
 };
 
-const verifyAccessToken = (token) => {
+const verifyAccessToken = (req, res, next) => {
   try {
-    console.log(`Verifying access token: ${token}`);
+    const token = req.headers.authorization;
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    return decoded;
+    req.verifiedUser = decoded;
+    next();
   } catch (error) {
     console.error(`Error occured : ${error.message}`);
-    throw new Error('Invalid access token');
+    res
+      .status(error.status || 401)
+      .send({ errorStatus: true, data: { error: error.message } });
   }
 };
 

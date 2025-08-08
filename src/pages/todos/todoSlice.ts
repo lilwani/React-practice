@@ -1,16 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-interface TodosState {
+export interface TodosList {
   todoID: number;
   title: string;
   description: string;
   completed: boolean;
   lastUpdatedDate: string;
+  type: string;
+  userId: number;
 }
 
 export interface todoSliceState {
-  todos: TodosState[] | null;
+  todos: TodosList[] | null;
   isLoading: boolean;
   error: string | null;
 }
@@ -25,7 +27,7 @@ const todoSlice = createSlice({
   name: 'todos',
   initialState,
   reducers: {
-    setTodos: (state: todoSliceState, action: PayloadAction<TodosState>) => {
+    setTodos: (state: todoSliceState, action: PayloadAction<TodosList>) => {
       state.todos?.push(action.payload);
     },
   },

@@ -2,6 +2,7 @@ import express from 'express';
 import config from './config/index.js';
 import userRouter from './routes/userRoutes.js';
 import todosRouter from './routes/todoRoutes.js';
+import authRouter from './routes/authRouter.js';
 
 const PORT = process.env.PORT || 3040;
 const app = express();
@@ -10,6 +11,7 @@ app.use(express.json());
 app.use(config);
 app.use('/api/user', userRouter);
 app.use('/api/todos', todosRouter);
+app.use('/api/auth', authRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
