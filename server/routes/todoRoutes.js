@@ -10,7 +10,7 @@ router.get('/', verifyAccessToken, (req, res) => {
     const userTodos = getUserTodos(userId);
     res.status(200).send({
       errorStatus: false,
-      data: {
+      results: {
         todos: userTodos,
         userId,
       },
@@ -19,7 +19,7 @@ router.get('/', verifyAccessToken, (req, res) => {
     console.error(`Error occured : ${error.message}`);
     res.status(500).send({
       errorStatus: true,
-      data: {
+      results: {
         error: error.message,
       },
     });

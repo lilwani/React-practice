@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { loginUserThunk } from '../user/userSlice';
+import type { UserAxiosResp } from '../../services/userServices';
+import type { RootState } from '../../store/store';
 
 export interface TodosList {
   todoID: number;
@@ -12,13 +15,13 @@ export interface TodosList {
 }
 
 export interface todoSliceState {
-  todos: TodosList[] | null;
+  todosList: TodosList[] | null;
   isLoading: boolean;
   error: string | null;
 }
 
 const initialState: todoSliceState = {
-  todos: [],
+  todosList: [],
   isLoading: false,
   error: null,
 };
@@ -28,10 +31,54 @@ const todoSlice = createSlice({
   initialState,
   reducers: {
     setTodos: (state: todoSliceState, action: PayloadAction<TodosList>) => {
-      state.todos?.push(action.payload);
+      state.todosList?.push(action.payload);
     },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(loginUserThunk.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        loginUserThunk.fulfilled,
+        (state: todoSliceState, action: PayloadAction<UserAxiosResp>) => {
+          const { token, todos } = action.payload.result;
+          if (todos && token) {
+            state.todosList = [...todos];
+            state.isLoading = false;
+          }
+        }
+      )
+      .addCase(loginUserThunk.rejected, (state: todoSliceState, action) => {
+        state.isLoading = false;
+        if (
+          action.payload &&
+          typeof action.payload === 'object' &&
+          'result' in action.payload &&
+          action.payload.result &&
+          'error' in action.payload.result
+        ) {
+          state.error = action.payload.result.error ?? 'Unknown error';
+        } else if (typeof action.payload === 'string') {
+          state.error = action.payload;
+        } else {
+          state.error = 'Login failed';
+        }
+      });
   },
 });
 
 export default todoSlice.reducer;
 export const { setTodos } = todoSlice.actions;
+
+export const getAllTodos = (state: RootState): TodosList[] | null =>
+  state.todos.todosList;
+
+export const getOneTodo =
+  (todoIndex: number) =>
+  (state: RootState): TodosList | undefined => {
+    if (Array.isArray(state.todos.todosList)) {
+      return state.todos.todosList[todoIndex];
+    }
+    return undefined;
+  };

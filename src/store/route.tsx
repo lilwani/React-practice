@@ -16,13 +16,11 @@ const router = createBrowserRouter([
         path: 'user',
         children: [
           {
-            index: true,
             path: 'login',
             element: <Login isSignup={false} />,
             errorElement: <ErrorPage />,
           },
           {
-            index: true,
             path: 'signup',
             element: <Login isSignup={true} />,
             errorElement: <ErrorPage />,
