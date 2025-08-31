@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import getUserTodos from '../Appsvc/todos';
-import { verifyAccessToken } from '../Appsvc/auth';
+import getUserTodos from '../Appsvc/todos/index.js';
+import { verifyAccessToken } from '../Appsvc/auth/index.js';
 
 const router = Router();
 

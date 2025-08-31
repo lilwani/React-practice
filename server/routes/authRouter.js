@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { users } from '../users';
-import getUserTodos from '../Appsvc/todos';
+import { users } from '../users.js'
+import getUserTodos from '../Appsvc/todos/index.js';
 
 const router = Router();
 

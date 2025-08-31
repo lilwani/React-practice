@@ -1,4 +1,3 @@
-import React from 'react';
 import SidebarTodoList from './SidebarTodoList';
 import SidebarDeletedTodo from './SidebarDeletedTodo';
 import SidebarArchiveTodo from './SidebarArchiveTodo';

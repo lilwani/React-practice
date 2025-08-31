@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { users } from '../users';
+import { users } from '../users.js';
 import jwt from 'jsonwebtoken';
-import { generateAccessToken } from '../Appsvc/auth';
+import { generateAccessToken } from '../Appsvc/auth/index.js';
 
 const router = Router();
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -13,8 +12,8 @@ function App() {
   return (
     <div className="flex flex-col h-screen w-screen justify-between ">
       <Header />
-      {/* {!isLoggedIn ? <Login isSignup={false} /> : <Dashboard />} */}
-      <Dashboard/>
+      {!isLoggedIn ? <Login isSignup={false} /> : <Dashboard />}
+      {/* <Dashboard /> */}
       <Footer />
     </div>
   );

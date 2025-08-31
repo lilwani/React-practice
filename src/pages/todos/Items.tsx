@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card } from 'flowbite-react';
 import { Link, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -10,22 +9,28 @@ export default function Items() {
 
   return (
     <div className="basis-[75%] w-[75%] ml-1 mr-4 p-4 rounded-xl border-2 border-white bg-gray-900 flex flex-row flex-wrap overflow-y-auto max-h-full content-start">
-      {allTodos?.map((todoItem) => (
-        <Link
-          to={`/user/${userId}/${todoItem.todoID}`}
-          key={todoItem.todoID}
-          className="w-[20%] m-4 no-underline"
-        >
-          <Card className="bg-gray-800 text-white rounded-xl min-h-[200px] w-[95%] p-4 hover:bg-gray-700 cursor-pointer transition-colors duration-200">
-            <h3 className="text-2xl font-bold tracking-wide text-white overflow-hidden truncate mb-2 basis-[25%]">
-              {todoItem.title}
-            </h3>
-            <p className=" text-gray-400 font-normal w-full text-left overflow-hidden ">
-              {todoItem.description}
-            </p>
-          </Card>
-        </Link>
-      ))}
+      {!allTodos?.length ? (
+        <p className="justify-center w-[100%] h-full text-2xl font-semibold">
+          No Todos found
+        </p>
+      ) : (
+        allTodos?.map((todoItem) => (
+          <Link
+            to={`/user/${userId}/${todoItem.todoID}`}
+            key={todoItem.todoID}
+            className="w-[20%] m-4 no-underline"
+          >
+            <Card className="bg-gray-800 text-white rounded-xl min-h-[200px] w-[95%] p-4 hover:bg-gray-700 cursor-pointer transition-colors duration-200">
+              <h3 className="text-2xl font-bold tracking-wide text-white overflow-hidden truncate mb-2 basis-[25%]">
+                {todoItem.title}
+              </h3>
+              <p className=" text-gray-400 font-normal w-full text-left overflow-hidden ">
+                {todoItem.description}
+              </p>
+            </Card>
+          </Link>
+        ))
+      )}
     </div>
   );
 }

@@ -1,4 +1,3 @@
-import React from 'react';
 import SidebarTitle from './SidebarTitle';
 import SidebarAllTodos from './SidebarAllTodos';
 
