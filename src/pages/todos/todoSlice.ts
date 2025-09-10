@@ -42,6 +42,7 @@ const todoSlice = createSlice({
       .addCase(
         loginUserThunk.fulfilled,
         (state: todoSliceState, action: PayloadAction<UserAxiosResp>) => {
+          console.log(`in builder todoSlice loginThunk fulfilled`);
           const { token, todos } = action.payload.result;
           if (todos && token) {
             state.todosList = [...todos];
@@ -78,7 +79,18 @@ export const getOneTodo =
   (todoIndex: number) =>
   (state: RootState): TodosList | undefined => {
     if (Array.isArray(state.todos.todosList)) {
-      return state.todos.todosList[todoIndex];
+      console.log(`todoParam is ${todoIndex}`);
+      return state.todos.todosList.find((item) => item.todoID === todoIndex);
     }
     return undefined;
   };
+
+/*
+  
+  NEXT TIME
+
+  Use Redirect instead of dispatch after login
+  Refreshing page send you back to login, investigate why
+  fix why modal close won't take you back to dashboard all items and fix its styling  
+
+  */

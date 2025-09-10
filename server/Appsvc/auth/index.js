@@ -8,6 +8,7 @@ const generateAccessToken = (user) => {
     const token = jwt.sign({ UID: user.id }, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: '15m',
     });
+    return token;
   } catch (error) {
     console.error(`Error occured : ${error.message}`);
     throw new Error('Failed to generate access token');
@@ -20,6 +21,7 @@ const generateRefreshToken = (user) => {
     const token = jwt.sign({ UID: user.id }, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: '15m',
     });
+    return token;
   } catch (error) {
     console.error(`Error occured : ${error.message}`);
     throw new Error('Failed to generate refresh token');

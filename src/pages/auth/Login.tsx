@@ -1,6 +1,6 @@
 import React, { type FormEvent } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import type { AppDispatch } from '../../store/store';
 import { loginUserThunk } from '../user/userSlice';
 import type { Payload } from '../../services/userServices';
@@ -12,15 +12,22 @@ interface ILoginIn {
 
 export default function Login({ isSignup }: ILoginIn) {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
-  const handleLoginSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleLoginSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const data: Payload = {
       email: (form.elements.namedItem('email') as HTMLInputElement).value,
       password: (form.elements.namedItem('password') as HTMLInputElement).value,
     };
-    dispatch(loginUserThunk(data));
+    console.log(`login data is ${JSON.stringify(data)}`);
+    const thunkData = await dispatch(loginUserThunk(data));
+    if (thunkData.payload && !thunkData.payload?.errorStatus) {
+      const userID = thunkData.payload.result.user?.userID;
+      console.log('data in login component', userID);
+      navigate(`/user/${userID}`);
+    }
   };
 
   return (

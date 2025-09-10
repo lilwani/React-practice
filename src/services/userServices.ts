@@ -19,7 +19,7 @@ export interface Payload {
 
 export async function signupUser(payload: Payload) {
   try {
-    const url = `${process.env.REACT_APP_API_URL}/api/auth/signup`;
+    const url = `${import.meta.env.VITE_API_URL}/api/auth/signup`;
     const response = await axios.post<UserAxiosResp>(url, payload);
     return response.data;
   } catch (error: any) {
@@ -30,7 +30,7 @@ export async function signupUser(payload: Payload) {
 
 export async function loginUser(payload: Payload): Promise<UserAxiosResp> {
   try {
-    const url = `${process.env.REACT_APP_API_URL}/api/auth/login`;
+    const url = `${import.meta.env.VITE_API_URL}/api/auth/login`;
     const response = await axios.post<UserAxiosResp>(url, payload);
     return response.data;
   } catch (error: any) {

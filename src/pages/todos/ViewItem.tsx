@@ -21,11 +21,12 @@ export default function ViewItem() {
   if (!oneTodoItem) {
     return (
       <div className="flex justify-center items-center w-[100%] h-full text-2xl font-semibold">
-        No items found
+        No items found in ViewItem component
       </div>
     );
   }
 
+  console.log(`oneTodoItem is ${JSON.stringify(oneTodoItem)}`);
   const modalRoot = document.getElementById('modal-root');
   if (!modalRoot) {
     throw new Error('Modal root element not found');

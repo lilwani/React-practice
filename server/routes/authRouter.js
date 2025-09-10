@@ -1,27 +1,38 @@
 import { Router } from 'express';
-import { users } from '../users.js'
+import { users } from '../users.js';
 import getUserTodos from '../Appsvc/todos/index.js';
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from '../Appsvc/auth/index.js';
 
 const router = Router();
 
 router.post('/signup', (req, res) => {
   try {
+    console.log(`Signup request received`);
     const { email, password } = req.body;
     if (email && password) {
       const existingUser = users.find((user) => user.email === email);
       if (!existingUser) {
         console.log(`Add new user with email ${email}`);
-        const newUser = { userId: users.length + 1, email, password };
-        const accessToken = generateAccessToken(newUser.userId);
-        const refreshToken = generateAccessToken(newUser.userId);
+        const newUser = {
+          id: users.length + 1,
+          email,
+          password,
+          name: 'default',
+        };
+        const accessToken = generateAccessToken(newUser);
+        const refreshToken = generateRefreshToken(newUser);
         newUser.token = [refreshToken];
         users.push(newUser);
+        console.log('User reigistered successfully');
         res.status(200).send({
           errorStatus: false,
           result: {
             token: accessToken,
             user: {
-              userID: newUser.userId,
+              userID: newUser.id,
               email: newUser.email,
               name: 'default',
               age: 100,
@@ -51,15 +62,18 @@ router.post('/signup', (req, res) => {
 
 router.post('/login', (req, res) => {
   try {
+    console.log(`Login request received`);
     const { email, password } = req.body;
+    console.log(`req.body is ${JSON.stringify(req.body)}`);
     if (email && password) {
       const existingUser = users.find((user) => user.email === email);
       if (existingUser) {
         console.log(`User with email ${email} found`);
-        const accessToken = generateAccessToken(existingUser.userId);
-        const refreshToken = generateAccessToken(existingUser.userId);
-        const todos = getUserTodos(existingUser.userId);
+        const accessToken = generateAccessToken(existingUser);
+        const refreshToken = generateRefreshToken(existingUser);
+        const todos = getUserTodos(existingUser.id);
         existingUser.token = [refreshToken];
+        console.log('User logged in successfully', existingUser);
         res.status(200).send({
           errorStatus: false,
           result: {

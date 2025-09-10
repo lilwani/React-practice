@@ -59,6 +59,7 @@ const userSlice = createSlice({
       .addCase(
         loginUserThunk.fulfilled,
         (state: userSliceState, action: PayloadAction<UserAxiosResp>) => {
+          console.log(`in builder userSlice loginThunk fulfilled`);
           const { user, token } = action.payload.result;
           if (user && token) {
             state.user = { ...user, token };
